@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete Account — StayBy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1e3a5f;
+      --accent:  #4f6ef7;
+      --text:    #1a2332;
+      --muted:   #5a6a7e;
+      --bg:      #ffffff;
+      --surface: #f8fafd;
+      --border:  #e8edf4;
+      --max:     760px;
+      --red:     #e53e3e;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    header {
+      background: var(--primary);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    header .logo span { color: #7c9ef8; }
+    header nav { margin-left: auto; display: flex; gap: 20px; }
+    header nav a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    header nav a:hover { color: #fff; }
+    .hero {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5282 100%);
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 17px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 28px;
+    }
+    .card.warning {
+      background: #fff5f5;
+      border-color: #fed7d7;
+    }
+    .card.info {
+      background: #ebf8ff;
+      border-color: #bee3f8;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    h2 .icon.red { background: #fed7d7; }
+    h2 .icon.blue { background: #bee3f8; }
+    h2 .icon.green { background: #c6f6d5; }
+    ol, ul { padding-left: 20px; }
+    li { margin-bottom: 10px; color: var(--muted); font-size: 15px; }
+    li strong { color: var(--text); }
+    p { color: var(--muted); font-size: 15px; margin-bottom: 12px; }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content strong { display: block; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+    .step-content span { color: var(--muted); font-size: 14px; }
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .data-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: var(--surface); }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge.deleted { background: #fed7d7; color: #c53030; }
+    .badge.retained { background: #fefcbf; color: #744210; }
+    .contact-box {
+      background: var(--primary);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      color: #fff;
+    }
+    .contact-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .contact-box p { color: rgba(255,255,255,0.75); margin-bottom: 20px; font-size: 15px; }
+    .contact-box a {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .contact-box a:hover { background: #3a5ce4; }
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Stay<span>By</span></div>
+  <nav>
+    <a href="index.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Delete Your Account</h1>
+  <p>You can delete your StayBy account directly from the app or by contacting our support team.</p>
+</div>
+
+<main>
+
+  <!-- In-app deletion -->
+  <div class="card">
+    <h2><span class="icon red">🗑️</span> Delete Account from the App</h2>
+    <p>The easiest way to delete your account is directly within the StayBy app:</p>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <strong>Open StayBy and log in</strong>
+        <span>Use your registered email and password.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <strong>Go to Settings</strong>
+        <span>Tap the Settings icon from the bottom navigation or the dashboard.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <strong>Scroll to "Danger Zone"</strong>
+        <span>At the bottom of the Settings page, find the "Delete Account" option.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <strong>Confirm deletion</strong>
+        <span>Read the warning and confirm. Your account will be scheduled for deletion within 30 days.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email request -->
+  <div class="card info">
+    <h2><span class="icon blue">✉️</span> Request Deletion by Email</h2>
+    <p>If you cannot access the app, you can request account deletion by emailing us:</p>
+    <ol>
+      <li>Send an email to <strong>support.stayby@keysmetrics.in</strong></li>
+      <li>Use the subject line: <strong>"Account Deletion Request"</strong></li>
+      <li>Include your <strong>registered email address</strong> in the message</li>
+      <li>We will process your request within <strong>7 business days</strong></li>
+    </ol>
+  </div>
+
+  <!-- What gets deleted -->
+  <div class="card">
+    <h2><span class="icon green">📋</span> What Data Is Deleted or Retained</h2>
+    <p>When your account is deleted, here is what happens to your data:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>Action</th>
+          <th>Retention Period</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Account profile (name, email, phone)</td>
+          <td><span class="badge deleted">Deleted</span></td>
+          <td>Within 30 days</td>
+        </tr>
+        <tr>
+          <td>PG details (name, address)</td>
+          <td><span class="badge deleted">Deleted</span></td>
+          <td>Within 30 days</td>
+        </tr>
+        <tr>
+          <td>Rooms and tenant records</td>
+          <td><span class="badge deleted">Deleted</span></td>
+          <td>Within 30 days</td>
+        </tr>
+        <tr>
+          <td>Staff accounts linked to your PG</td>
+          <td><span class="badge deleted">Deleted</span></td>
+          <td>Within 30 days</td>
+        </tr>
+        <tr>
+          <td>Payment and expense records</td>
+          <td><span class="badge retained">Retained</span></td>
+          <td>90 days (for dispute resolution), then deleted</td>
+        </tr>
+        <tr>
+          <td>Activity logs</td>
+          <td><span class="badge retained">Retained</span></td>
+          <td>90 days, then deleted</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Warning -->
+  <div class="card warning">
+    <h2><span class="icon red">⚠️</span> Important Notice</h2>
+    <ul>
+      <li>Account deletion is <strong>permanent and irreversible</strong> after the 30-day grace period.</li>
+      <li>During the 30-day grace period, you can cancel deletion by contacting support.</li>
+      <li>All active tenant and payment data will be permanently lost.</li>
+      <li>Staff members linked to your PG will also lose access.</li>
+      <li>Any active subscription will not be refunded upon deletion.</li>
+    </ul>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-box">
+    <h3>Need Help?</h3>
+    <p>If you have questions about account deletion or data removal, our support team is here to help.</p>
+    <a href="mailto:support.stayby@keysmetrics.in">Contact Support</a>
+  </div>
+
+</main>
+
+<footer>
+  &copy; 2026 StayBy by <a href="https://www.keysmetrics.in">KeysMetrics</a> &nbsp;·&nbsp;
+  <a href="index.html">Privacy Policy</a> &nbsp;·&nbsp;
+  <a href="terms.html">Terms of Service</a>
+</footer>
+
+</body>
+</html>
